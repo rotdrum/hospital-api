@@ -12,7 +12,13 @@ export class UsersService {
   ) {}
 
   async get(): Promise<any> {
-    return await this.userRepository.find();
+    let user = await this.userRepository.find();
+
+    if (!user) {
+      user = [];
+    }
+
+    return user;
   }
 
   async show(id: number): Promise<any> {

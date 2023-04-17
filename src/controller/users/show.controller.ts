@@ -10,9 +10,9 @@ export class ShowController {
   @Get(':id')
   async show(@Param('id') id: string): Promise<any> {
     try {
-      const hello = await this.userService.show(decodeId(id) as number);
+      const data = await this.userService.show(decodeId(id) as number);
 
-      return ApiResource.successResponse(hello);
+      return ApiResource.successResponse(data);
     } catch (error) {
       console.log(error);
       return ApiResource.errorResponse(error);

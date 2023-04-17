@@ -11,9 +11,9 @@ export class GetController {
   async get(): Promise<any> {
     console.log(encodeId(1));
     try {
-      const hello = await this.userService.get();
+      const data = await this.userService.get();
 
-      return ApiResource.successResponse(hello);
+      return ApiResource.successResponse(data);
     } catch (error) {
       return ApiResource.errorResponse(error);
     }
