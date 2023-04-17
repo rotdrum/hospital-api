@@ -16,6 +16,7 @@ import { get } from 'lodash';
 
 @Catch()
 export class ExceptionFilter implements ExceptionFilterInterface {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {}
 
   /**
@@ -34,6 +35,14 @@ export class ExceptionFilter implements ExceptionFilterInterface {
 
     if (exception instanceof Error) {
       errors = [exception.message];
+    }
+
+    if (exception instanceof HttpException) {
+      const handleResponse = this.handleHttpException(exception);
+      statusCode = handleResponse.statusCode;
+      errorCode = handleResponse.errorCode;
+      errorMessage = handleResponse.errorMessage;
+      errors = handleResponse.errors;
     }
 
     const payload = {

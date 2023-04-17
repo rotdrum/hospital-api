@@ -1,9 +1,16 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from './entities/user.entity';
 import { UsersModule } from './module/users.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
+import { APP_FILTER } from '@nestjs/core';
+import { ExceptionFilter } from './exceptions/exception.filter';
 
 @Module({
   imports: [
@@ -24,8 +31,13 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
     }),
     UsersModule,
   ],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: ExceptionFilter,
+    },
+  ],
 })
-
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
