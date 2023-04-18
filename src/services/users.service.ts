@@ -41,6 +41,19 @@ export class UsersService {
   }
 
   /**
+   * @param param
+   * @returns Users
+   */
+  async findUser(param: any): Promise<Users> {
+    const user = await this.userRepository.findOne({
+      username: param?.username,
+      email: param?.email,
+    });
+
+    return user;
+  }
+
+  /**
    * @param params
    * @returns Users
    */

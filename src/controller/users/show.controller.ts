@@ -14,7 +14,6 @@ export class ShowController {
 
       return ApiResource.successResponse(data);
     } catch (error) {
-      console.log(error);
       return ApiResource.errorResponse(error);
     }
   }

@@ -11,10 +11,13 @@ import { UsersModule } from './module/users.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { APP_FILTER } from '@nestjs/core';
 import { ExceptionFilter } from './exceptions/exception.filter';
+import { JwtService } from '@nestjs/jwt';
+import { UsersService } from './services/users.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forFeature([Users]),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -32,6 +35,8 @@ import { ExceptionFilter } from './exceptions/exception.filter';
     UsersModule,
   ],
   providers: [
+    JwtService,
+    UsersService,
     {
       provide: APP_FILTER,
       useClass: ExceptionFilter,
