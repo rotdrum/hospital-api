@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Delete, Param } from '@nestjs/common';
 import { decodeId } from 'src/common/helpers/hash-id.helper';
 import { ApiResource } from 'src/resources/api.resource';
 import { PatientsService } from 'src/services/patients.service';
@@ -7,8 +7,8 @@ import { PatientsService } from 'src/services/patients.service';
 export class DestroyController {
   constructor(private readonly patientsService: PatientsService) {}
 
-  @Get(':id')
-  async show(@Param('id') id: string): Promise<ApiResource> {
+  @Delete(':id')
+  async destroy(@Param('id') id: string): Promise<ApiResource> {
     try {
       const data = await this.patientsService.softDelete(
         decodeId(id) as number,

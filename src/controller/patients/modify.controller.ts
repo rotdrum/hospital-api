@@ -9,7 +9,7 @@ export class ModifyController {
   constructor(private readonly patientsService: PatientsService) {}
 
   @Patch(':id')
-  async store(
+  async modify(
     @Param('id') id: string,
     @Body() params: PatientsUpdateDto,
   ): Promise<ApiResource> {
