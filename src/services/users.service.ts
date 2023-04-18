@@ -5,12 +5,15 @@ import { AuthException } from 'src/exceptions/app/auth.exception';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UsersStoreDto } from 'src/dto/users-store.dto';
+import { AuthLoginDto } from 'src/dto/auth-login.dto';
+import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(Users)
     private userRepository: Repository<Users>,
+    private jwtService: JwtService,
   ) {}
 
   /**
@@ -66,5 +69,38 @@ export class UsersService {
       password: hash,
       username: params.username,
     });
+  }
+
+  /**
+   * @param params
+   * @returns Users
+   */
+  async login(params: AuthLoginDto): Promise<any> {
+    const user = await this.userRepository.findOne({
+      email: params.email,
+    });
+
+    if (!user) {
+      throw AuthException.userNotFound();
+    }
+
+    const isMatch = await bcrypt.compare(params.password, user.password);
+
+    if (!isMatch) {
+      throw AuthException.userNotFound();
+    }
+
+    const payload = {
+      email: user.email,
+      username: user.username,
+    };
+    const accessToken = await this.jwtService.signAsync(payload, {
+      secret: 'secret',
+    });
+
+    return {
+      ...user,
+      access_token: accessToken,
+    };
   }
 }
