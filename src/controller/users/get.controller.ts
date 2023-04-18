@@ -9,7 +9,8 @@ export class GetController {
 
   @Get()
   async get(): Promise<ApiResource> {
-    console.log(encodeId(1));
+    // for encodeId test
+    // console.log(encodeId(1));
     try {
       const data = await this.userService.get();
 
