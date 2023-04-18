@@ -1,15 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiResource } from 'src/resources/api.resource';
-import { UsersService } from 'src/services/users.service';
+import { PatientsService } from 'src/services/patients.service';
 
-@Controller('users')
+@Controller('patients')
 export class GetController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(private readonly patientsService: PatientsService) {}
 
   @Get()
   async get(): Promise<ApiResource> {
     try {
-      const data = await this.userService.get();
+      const data = await this.patientsService.get();
 
       return ApiResource.successResponse(data);
     } catch (error) {

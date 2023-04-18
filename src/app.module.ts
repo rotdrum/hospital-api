@@ -13,6 +13,8 @@ import { APP_FILTER } from '@nestjs/core';
 import { ExceptionFilter } from './exceptions/exception.filter';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from './services/users.service';
+import { Patients } from './entities/patient.entity';
+import { PatientModule } from './module/patients.module';
 
 @Module({
   imports: [
@@ -27,12 +29,13 @@ import { UsersService } from './services/users.service';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [Users],
+        entities: [Users, Patients],
         synchronize: true,
       }),
       inject: [ConfigService],
     }),
     UsersModule,
+    PatientModule,
   ],
   providers: [
     JwtService,
@@ -47,7 +50,7 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
-      .exclude()
+      .exclude('register', 'login')
       .forRoutes({ path: '/*', method: RequestMethod.ALL });
   }
 }

@@ -16,4 +16,8 @@ export class AuthException {
   static userNotFound(): ApiException {
     return new ApiException(300004, []);
   }
+
+  static createError(error?: string[]): ApiException {
+    return new ApiException(300005, error);
+  }
 }

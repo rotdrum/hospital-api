@@ -6,7 +6,8 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UsersStoreDto } from 'src/dto/users-store.dto';
 import { AuthLoginDto } from 'src/dto/auth-login.dto';
-import { JwtService, JwtSignOptions } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
+import { error } from 'console';
 
 @Injectable()
 export class UsersService {
@@ -64,11 +65,15 @@ export class UsersService {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(params.password, salt);
 
-    return await this.userRepository.save({
-      email: params.email,
-      password: hash,
-      username: params.username,
-    });
+    try {
+      return await this.userRepository.save({
+        email: params.email,
+        password: hash,
+        username: params.username,
+      });
+    } catch (error) {
+      throw AuthException.createError(error);
+    }
   }
 
   /**

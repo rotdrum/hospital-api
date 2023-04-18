@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, Table } from 'typeorm';
 
 module.exports = class UserTable1681669292393 implements MigrationInterface {
   async up(queryRunner) {

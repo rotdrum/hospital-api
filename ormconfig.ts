@@ -9,10 +9,10 @@ const dbConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   synchronize: false,
-  entities: [join(__dirname, './src/app/entities/**/*.entity{.ts,.js}')],
+  entities: [join(__dirname, './src/entities/**/*.entity{.ts,.js}')],
   migrations: [join(__dirname, './src/migrations/*{.ts,.js}')],
   cli: {
-    migrationsDir: 'src/database/migrations',
+    migrationsDir: 'src/migrations',
   },
   namingStrategy: new SnakeNamingStrategy(),
 };

@@ -22,9 +22,6 @@ export class AuthMiddleware implements NestMiddleware {
       throw new UnauthorizedException();
     }
 
-    // token for test
-    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRydW1AZ21haWwuY29tIiwibmFtZSI6ImRydW0iLCJpYXQiOjE1MTYyMzkwMjJ9.qdPTA-o51YEJ_GmfYeWc1Jy-YyKEjV-OUtMTosYE_Zg';
-
     const token = (authorization as string).split(' ')[1];
     const decodeToken = this.jwtService.decode(token);
 
