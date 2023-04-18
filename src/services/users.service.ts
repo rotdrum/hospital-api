@@ -13,6 +13,9 @@ export class UsersService {
     private userRepository: Repository<Users>,
   ) {}
 
+  /**
+   * @returns Users | object
+   */
   async get(): Promise<Users | object> {
     let user = await this.userRepository.find();
 
@@ -23,6 +26,10 @@ export class UsersService {
     return user;
   }
 
+  /**
+   * @param id
+   * @returns Users
+   */
   async show(id: number): Promise<Users> {
     const user = await this.userRepository.findOne(id);
 
@@ -33,6 +40,10 @@ export class UsersService {
     return user;
   }
 
+  /**
+   * @param params
+   * @returns Users
+   */
   async create(params: UsersStoreDto): Promise<Users> {
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(params.password, salt);
