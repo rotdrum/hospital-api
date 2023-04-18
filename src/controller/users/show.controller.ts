@@ -8,7 +8,7 @@ export class ShowController {
   constructor(private readonly userService: UsersService) {}
 
   @Get(':id')
-  async show(@Param('id') id: string): Promise<any> {
+  async show(@Param('id') id: string): Promise<ApiResource> {
     try {
       const data = await this.userService.show(decodeId(id) as number);
 

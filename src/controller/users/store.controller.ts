@@ -1,17 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
-import { encodeId } from 'src/common/helpers/hash-id.helper';
+import { Body, Controller, Post } from '@nestjs/common';
+import { UsersStoreDto } from 'src/dto/users-store.dto';
 import { ApiResource } from 'src/resources/api.resource';
 import { UsersService } from 'src/services/users.service';
 
-@Controller('users')
-export class GetController {
+@Controller('register')
+export class StoreController {
   constructor(private readonly userService: UsersService) {}
 
-  @Get()
-  async get(): Promise<ApiResource> {
-    console.log(encodeId(1));
+  @Post()
+  async store(@Body() params: UsersStoreDto): Promise<ApiResource> {
     try {
-      const data = await this.userService.get();
+      const data = await this.userService.create(params);
 
       return ApiResource.successResponse(data);
     } catch (error) {
