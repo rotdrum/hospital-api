@@ -7,26 +7,12 @@ import { Users } from 'src/entities/user.entity';
 import { UsersService } from 'src/services/users.service';
 import { Repository } from 'typeorm';
 
-const users = [
-  plainToInstance(Users, {
-    id: 1,
-    username: 'ddd',
-    email: 'ddd',
-    password: 'ddd',
-  }),
-  plainToInstance(Users, {
-    id: 2,
-    username: 'ddd',
-    email: 'ddd',
-    password: 'ddd',
-  }),
-  plainToInstance(Users, {
-    id: 3,
-    username: 'ddd',
-    email: 'ddd',
-    password: 'ddd',
-  }),
-];
+const user = plainToInstance(Users, {
+  id: 1,
+  username: 'ddd',
+  email: 'ddd',
+  password: 'ddd',
+});
 
 describe('UsersService', () => {
   let userRepository: Repository<Users>;
@@ -43,18 +29,24 @@ describe('UsersService', () => {
   });
 
   it('should be ok', async (done) => {
-    jest.spyOn(userRepository, 'find').mockResolvedValue(users);
+    jest.spyOn(userRepository, 'findOne').mockResolvedValue(user);
 
-    const result = await service.get();
-    expect(get(result, 'length', 0)).toEqual(3);
+    const result = await service.show(1);
+    expect(get(result, 'id', 0)).toEqual(1);
     done();
   });
 
-  it('should be empty', async (done) => {
-    jest.spyOn(userRepository, 'find').mockResolvedValue(null);
+  it('should be err', async (done) => {
+    jest.spyOn(userRepository, 'findOne').mockResolvedValue(null);
 
-    const result = await service.get();
-    expect(result).toEqual([]);
-    done();
+    try {
+      await service.show(99);
+    } catch (err) {
+      expect(get(err.getResponse(), 'errorCode')).toEqual(300004);
+      expect(get(err.getResponse(), 'errorMessage')).toEqual(
+        'AUTH_USER_NOT_FOUND',
+      );
+      done();
+    }
   });
 });

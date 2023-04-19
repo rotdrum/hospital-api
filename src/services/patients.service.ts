@@ -45,11 +45,7 @@ export class PatientsService {
    * @returns []
    */
   async softDelete(id: number): Promise<[]> {
-    const patient = await this.show(id);
-
-    if (!patient) {
-      throw PatientException.notFound();
-    }
+    await this.show(id);
 
     try {
       await this.patientRepository.softDelete(id);
@@ -67,10 +63,6 @@ export class PatientsService {
    */
   async update(id: number, params: PatientsUpdateDto): Promise<Patients> {
     const patient = await this.show(id);
-
-    if (!patient) {
-      throw PatientException.notFound();
-    }
 
     try {
       return await this.patientRepository.save({
