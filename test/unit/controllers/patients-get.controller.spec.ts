@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { plainToInstance } from 'class-transformer';
 import { get } from 'lodash';
-import { GetController } from 'src/controller/users/get.controller';
-import { Users } from 'src/entities/user.entity';
-import { UsersService } from 'src/services/users.service';
+import { GetController } from 'src/controller/patients/get.controller';
+import { Patients } from 'src/entities/patient.entity';
+import { PatientsService } from 'src/services/patients.service';
 
 describe('GetController', () => {
   let controller: GetController;
-  let fakeService: Partial<UsersService>;
+  let fakeService: Partial<PatientsService>;
 
   beforeEach(async () => {
     fakeService = {
@@ -18,7 +18,7 @@ describe('GetController', () => {
       controllers: [GetController],
       providers: [
         {
-          provide: UsersService,
+          provide: PatientsService,
           useValue: fakeService,
         },
       ],
@@ -28,28 +28,28 @@ describe('GetController', () => {
   });
 
   it('should return data ok', async () => {
-    const users = [
-      plainToInstance(Users, {
+    const patients = [
+      plainToInstance(Patients, {
         id: 1,
-        username: 'ddd',
-        email: 'ddd',
-        password: 'ddd',
+        firstName: 'fff',
+        lastName: 'lll',
+        gender: 'ggg',
       }),
-      plainToInstance(Users, {
+      plainToInstance(Patients, {
         id: 2,
-        username: 'ddd',
-        email: 'ddd',
-        password: 'ddd',
+        firstName: 'fff',
+        lastName: 'lll',
+        gender: 'ggg',
       }),
-      plainToInstance(Users, {
+      plainToInstance(Patients, {
         id: 3,
-        username: 'ddd',
-        email: 'ddd',
-        password: 'ddd',
+        firstName: 'fff',
+        lastName: 'lll',
+        gender: 'ggg',
       }),
     ];
 
-    jest.spyOn(fakeService, 'get').mockResolvedValue(users);
+    jest.spyOn(fakeService, 'get').mockResolvedValue(patients);
 
     const response = await controller.get();
 
