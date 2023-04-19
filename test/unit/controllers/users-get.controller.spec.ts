@@ -36,13 +36,13 @@ describe('GetController', () => {
         password: 'ddd',
       }),
       plainToInstance(Users, {
-        id: 1,
+        id: 2,
         username: 'ddd',
         email: 'ddd',
         password: 'ddd',
       }),
       plainToInstance(Users, {
-        id: 1,
+        id: 3,
         username: 'ddd',
         email: 'ddd',
         password: 'ddd',
@@ -54,9 +54,5 @@ describe('GetController', () => {
     const response = await controller.get();
 
     expect(get(response, 'data', []).length).toEqual(3);
-  });
-
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
   });
 });
