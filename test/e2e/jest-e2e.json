@@ -1,0 +1,31 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "setupFilesAfterEnv": ["<rootDir>/setup.ts"],
+  "moduleNameMapper": {
+    "^src/(.*)$": "<rootDir>/src/$1",
+    "^@enums/(.*)$": "<rootDir>/src/app/common/enums/$1",
+    "^@entities/(.*)$": "<rootDir>/src/app/entities/$1",
+    "^@services/(.*)$": "<rootDir>/src/app/services/$1",
+    "^@middlewares/(.*)$": "<rootDir>/src/app/middlewares/backend/$1",
+    "^@providers/(.*)$": "<rootDir>/src/app/providers/$1",
+    "^@decorators/(.*)$": "<rootDir>/src/app/common/decorators/$1",
+    "^@controller/v1/backend/(.*)$": "<rootDir>/src/app/http/v1/backend/controllers/$1",
+    "^@resources/backend/(.*)$": "<rootDir>/src/app/http/v1/backend/resources/$1",
+    "^@exceptions/(.*)$": "<rootDir>/src/app/exceptions/$1",
+    "^@constants/(.*)$": "<rootDir>/src/app/constants/$1",
+    "^@interfaces/(.*)$": "<rootDir>/src/app/common/interfaces/$1",
+    "^@helpers/(.*)$": "<rootDir>/src/app/common/helpers/$1",
+    "^@dtos/v1/backend/(.*)$": "<rootDir>/src/app/http/v1/backend/dtos/$1",
+    "^@resources/frontend/(.*)$": "<rootDir>/src/app/http/v1/frontend/resources/$1",
+    "^@controller/v1/frontend/(.*)$": "<rootDir>/src/app/http/v1/frontend/controllers/$1",
+    "^@dtos/v1/frontend/(.*)$": "<rootDir>/src/app/http/v1/frontend/dtos/$1",
+    "^@schedule/(.*)": "<rootDir>/src/app/schedule/$1",
+    "^@gateways/(.*)": "<rootDir>/src/app/gateways/$1"
+  }
+}

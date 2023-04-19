@@ -11,12 +11,13 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-    "esModuleInterop": true
+    "allowJs": true,
+    "esModuleInterop": true,
+    "lib": ["es2019", "dom"],
+    "paths": {
+      "*": [
+         "./*"
+       ]
+     },
   }
 }

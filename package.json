@@ -27,7 +27,10 @@
     "migration:generate": "npm run build && npm run typeorm migration:generate -- -o -n",
     "migration:run": "npm run build && npm run typeorm migration:run",
     "migration:revert": "npm run build && npm run typeorm migration:revert",
-    "command": "ts-node -r tsconfig-paths/register src/microservices/cli-commander/cli.ts"
+    "command": "ts-node -r tsconfig-paths/register src/microservices/cli-commander/cli.ts",
+    "clear_jest": "jest --clearCache",
+    "show_jest": "jest --showConfig",
+    "typescript.preferences.importModuleSpecifier": "relative"
   },
   "dependencies": {
     "@appotter/nestjs-s3": "^1.0.0",
@@ -133,15 +136,21 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "./",
+    "modulePaths": ["<rootDir>"],
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/controller/**/*.controller.(t|j)s",
+      "src/services/**/*.service.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "<rootDir>/test/coverage",
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "~src/(.*)": "<rootDir>/src/$1"
+    },
+    "testRunner": "jest-jasmine2"
   }
 }
